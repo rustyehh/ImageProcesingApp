@@ -1,0 +1,85 @@
+
+spring:
+  profiles.active: home
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://192.168.0.45:5432/postgres
+    username: postgres
+    password: mysecretpassword
+
+
+## Spring Boot configuration
+  #spring:
+  #  profiles:
+  #    active: development
+  #  # Security configuration
+  #  security:
+  #    user:
+  #      name: user
+  #      password: user
+  #  # Database
+  #  datasource:
+  #    driver-class-name: org.postgresql.Driver
+  #    url: jdbc:postgresql://localhost:5432/book_db
+  #    username: postgres
+  #    password: postgres
+  #  # JPA properties
+  #  jpa:
+  #    hibernate:
+  #      ddl-auto: update # When you launch the application for the first time - switch "none" at "create"
+  #    show-sql: true
+  #    database: postgresql
+  #    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  #    open-in-view: false
+  #    generate-ddl: true
+  ## Logger configuration
+  #logging:
+  #  pattern:
+  #    console: "%d %-5level %logger : %msg%n"
+  #  level:
+  #    org.springframework: info
+  #    org.hibernate: debug
+  ## Server configuration
+  #server:
+  #  port: 8080 #set your port
+
+
+---
+
+spring:
+  profiles: office
+
+
+
+
+---
+spring:
+  profiles: home
+
+api:
+  patchToErrorLogs: "/home/ehh/Work/Error Logs/"
+  userName: "imageprocesingapp@gmail.com"
+  password: ""
+  EMAIL_TO_SnowRoot: "wojtek.ma@o2.pl"
+  EMAIL_FROM: "imageprocesingapp@gmail.com"
+  EMAIL_TO: "wmarek493@gmail.com"
+  smtp_server: "smtp.gmail.com"
+  tmp: /home/ehh/Work/tmp/extracted/
+  pathToImages: /home/ehh/Work/tmp/ValidatetImages
+  directoryToSearch: /home/ehh/Work/tmp/ImagesToValidate
+  acceptImageExtension:
+    - jpeg
+    - jpg
+    - png
+    - gif
+    - bmp
+    - webp
+    - raw
+    - ico
+    - pdf
+    - tiff
+  acceptArchiveExtension:
+    - zip
+
+#management.health.rabbit.enabled: false
+

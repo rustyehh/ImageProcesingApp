@@ -1,0 +1,31 @@
+@startuml "C3"
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Container.puml
+title AI C3 Scanner
+
+System_Boundary(scan, "Scanner"){
+    System(getImages, "getImages")
+    System(scanDir, "Search images and zip files")
+    System(unZip, "unZip")
+    System(unZip, "unZip")
+    System(validate, "validate image")
+    Container(zipFiles, "zipFiles", "technology")
+    Container(images, "images", "technology")
+
+}
+System(imageContr, "ImageService","")
+
+Container(dirs,"Directories","Storage all unprocessed images")
+
+Rel(imageContr,getImages,"get images")
+Rel(getImages,scanDir,"get images")
+Rel_D(scanDir,dirs,"Scan for images")
+
+Rel(scanDir, zipFiles, "add zips to container")
+Rel(zipFiles, unZip, "unZip files")
+Rel(unZip, scanDir, "Send to scan extracted directory")
+
+Rel(scanDir, validate, "send to validate image before adding")
+Rel(validate, images, "add images to container")
+
+@enduml
+files.fuck.you.jpg

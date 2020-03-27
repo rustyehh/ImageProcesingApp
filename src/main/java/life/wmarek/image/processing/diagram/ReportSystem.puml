@@ -1,0 +1,26 @@
+@startuml "C3"
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Container.puml
+title AI C3 ReportSystem
+Person(administrator, "Administrator")
+System_Boundary(backend,"Backend"){
+System_Boundary(reportSystem, "ReportSystem"){
+    System(reportManagement, "ReportManager","limits sending reports to x massages for a day or stop sending reports if administrator confirm report")
+    System(email, "Email","Create email message with crash log ")
+    System(discord, "Discord","Create discord message with crash log")
+    System(distributor,"Distributor","distributes notification to administrators")
+}
+System(apiController, "ApiController","")
+System(imageController, "ImageController","")
+System(webController, "WebController","")
+
+Rel(apiController,reportManagement,"stops reportManagement")
+Rel(administrator,apiController,"confirm report")
+Rel(distributor,administrator,"send notification")
+Rel(reportManagement,email,"send crash logs")
+Rel(reportManagement,discord,"send crash logs")
+Rel(email,distributor,"send message")
+Rel(discord,distributor,"send message")
+Rel(webController,reportManagement,"send crash logs")
+Rel(imageController,reportManagement,"send crash logs")
+}
+@enduml

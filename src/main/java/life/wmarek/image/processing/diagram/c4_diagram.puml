@@ -1,0 +1,60 @@
+@startuml "C1"
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Container.puml
+title AI C1
+
+System(front, "Front","Display Processed images")
+System(backend,"Backend","Processing image by AI")
+System_Ext(ai,"AI","process image by AI")
+Container(database,"Database","Storage all images")
+Container(dirs,"Directories","Storage all unprocessed images")
+Person(administrator,Administrator,)
+
+Rel(backend,administrator,"send crash logs")
+Rel(front,backend,"Ask for images")
+Rel(backend,ai,"send image")
+Rel(ai,backend,"wait for process image")
+Rel(backend,database,"Get images")
+Rel(backend,database,"Send processed images")
+Rel(backend,dirs,"Scan for images")
+
+@enduml
+
+@startuml "C2"
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Container.puml
+title AI C2
+
+System_Boundary("backend","Backend"){
+    System(download,"Download","")
+    System(send,"Send","")
+    System(reportSystem, "ReportSystem","")
+    System(scan,"Find Images","Scan end validate images in dirs")
+    System(imageController, "ImageService","")
+    System(webController, "WebController","")
+    System(apiController, ApiController,"")
+    System(scheduled, scheduled,"")
+
+}
+
+
+System(front, "Front","Display Processed images")
+System_Ext(ai,"AI","process image by AI")
+Container(database,"Database","Storage all images")
+Container(dirs,"Directories","Storage all unprocessed images")
+Person(administrator, "Administrator")
+
+Rel_R(scheduled,imageController,"")
+Rel(administrator,apiController,"confirm report")
+Rel(apiController,reportSystem,"stops reportSystem")
+Rel(reportSystem,administrator,"send crash logs")
+Rel(front,webController,"Ask for processed images")
+Rel(webController,reportSystem,"send crash logs")
+Rel(imageController,reportSystem,"send crash logs")
+Rel(imageController,scan,"get images")
+Rel(webController,download,"get images")
+Rel(imageController,send,"send processed image")
+Rel_U(imageController,ai,"send images to process end receive respond")
+Rel(download,database,"Get images")
+Rel(send,database,"Send processed images")
+Rel(scan,dirs,"Scan for images")
+
+@enduml

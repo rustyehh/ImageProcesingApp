@@ -1,0 +1,32 @@
+@startuml "C3"
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Container.puml
+title AI C3 Image Controller
+
+System_Boundary("backend","Backend"){
+    System(send,"Send","")
+    System(reportSystem, "ReportSystem","")
+    System(scan,"Find Images","Scan end validate images in dirs")
+    System_Boundary(imageController, "ImageService"){
+        System(getImages, "get Images")
+        System(processor, "Processor")
+        System(report, "report")
+        System(sendToProcess, "send images to process")
+        
+    }
+
+}
+
+System_Ext(ai,"AI","process image by AI")
+
+Rel(getImages,scan,"get images")
+Rel_L(processor,send,"Send processed to database")
+Rel(report, reportSystem, "Send crashes or statistic")
+Rel(processor, report, "send statistic")
+
+Rel(processor, getImages, "get images to porcess and receive respond")
+
+
+Rel_R(processor,sendToProcess,"process ready images and receive respond")
+Rel_R(sendToProcess,ai,"send images to process end receive respond")
+
+@enduml
