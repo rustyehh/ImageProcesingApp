@@ -30,4 +30,4 @@ Link: https://cloud.google.com/vision
 
 **Project status:**
 -
-in development
+on hold
